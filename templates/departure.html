@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block container %}
+    <h1 class="display-5 mt-4">Летим из <span data-test="from">{% if from_city == "msk" %}
+                                        Москвы
+                                    {% elif from_city == "spb" %}
+                                        Петербурга
+                                    {% elif from_city == "nsk" %}
+                                        Новосибирска
+                                    {% elif from_city == "ekb" %}
+                                        Екатеренбурга
+                                    {% elif from_city == "kazan" %}
+                                        Казани
+                                    {% endif %}
+                                        </span></h1>
+    <p class="mb-4" >Найдено <span data-test="tourcount">{{ tours|length }}</span> туров, от
+        <span data-test="pricemin">{{ price_min }} рублей</span> до
+        <span data-test="pricemax">{{ price_max }} рублей</span> и от
+        <span data-test="nightsmax">{{ nights_min }}</span> ночей до
+        <span data-test="nightsmax">{{ nights_max }}</span> ночей</p>
+    <!-- HERO -->
+
+
+
+    <!-- CARDS -->
+
+      <div class="row mt-5" data-test="cards">
+          {% for tour_id, tour in tours.items %}
+
+        <div class="col-4" data-test="card">
+            <div class="card mb-3" >
+            <img src={{ tour.picture }} class="card-img-top img-fluid data-test="picture" style="height:15vw">
+            <div class="card-body">
+              <h5 class="card-title">{{ tour.title }}</h5>
+             <p class="card-text">{{ tour.description }}</p>
+                <a href="/tour/{{ tour_id }}" class="btn btn-sm btn-primary" data-test="tourlink">Подробнее</a>
+            </div>
+        </div>
+        </div>
+            {% endfor %}
+      </div>
+{% endblock %}
